@@ -68,10 +68,15 @@ class StudentIdCard extends StatelessWidget {
             nameModel.firstName + " " + nameModel.lastName,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
-          //Text(profileModel.collegeCurrent),
-          //Text(profileModel.ugPrimaryMajorCurrent),
           Text(
-              barcodeModel.barCode.toString()), // TODO: NEED UTILITY FOR CONVERTING THIS INTEGER TO A BARCODE
+              profileModel.collegeCurrent,
+              style: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+          Text(
+            profileModel.ugPrimaryMajorCurrent,
+            style: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+          Text(barcodeModel.barCode.toString()), // TODO: NEED UTILITY FOR CONVERTING THIS INTEGER TO A BARCODE
       ]),
     ]);
   }
