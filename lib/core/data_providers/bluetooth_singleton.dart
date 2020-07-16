@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -169,6 +170,11 @@ class BluetoothSingleton {
       }
     });
 
+    // Store copy of the buffer list
+    List<String> copyOfBuffer = List.from(bufferList);
+    storeLogs(copyOfBuffer);
+
+
     // Add process scan results to scan log
     loggedItems.addAll(bufferList);
 
@@ -235,6 +241,15 @@ class BluetoothSingleton {
   // Internal constructor
   BluetoothSingleton._internal();
 
+  //Store Logs
+  void storeLogs(List<String> lastLog) async{
+    for(String deviceScanned in lastLog){
+      final String key = _randomValue();
+      final String value = deviceScanned;
+
+      _storage.write(key: key, value: value);
+    }
+  }
   // Listens for location changes and ensures it is larger than 200 meters
   void enableLocationListening() {
     location.onLocationChanged.listen((event) {
@@ -247,5 +262,15 @@ class BluetoothSingleton {
         enable++;
       }
     });
+  }
+
+  // Key generator
+  String _randomValue() {
+    final rand = Random();
+    final codeUnits = List.generate(20, (index) {
+      return rand.nextInt(26) + 65;
+    });
+
+    return String.fromCharCodes(codeUnits);
   }
 }

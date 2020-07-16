@@ -180,6 +180,8 @@ class _BluetoothLoggerViewState extends State<BluetoothLoggerView> {
     ran = 0;
   }
 
+
+
   // TODO: List devices' services (wip)
 /* servicesList(ScanResult r) async
   {
